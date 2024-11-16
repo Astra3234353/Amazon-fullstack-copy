@@ -1,4 +1,4 @@
-import formatCurrency from "../scripts/utils/money.js";
+import {formatCurrency} from '../scripts/utils/money.js';
 
 export function getProduct(productId) {
   let matchingProduct;
@@ -32,7 +32,7 @@ class Product {
   }
 
   getPrice() {
-    return `$${formatCurrency(this.priceCents)}`
+    return `$${formatCurrency(this.priceCents)}`;
   }
 
   extraInfoHTML() {
@@ -41,50 +41,54 @@ class Product {
 }
 
 class Clothing extends Product {
- sizeChartLink;
+  sizeChartLink;
 
- constructor(productDetails) {
-  super(productDetails);
-  this.sizeChartLink = productDetails.sizeChartLink;
- }
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
 
- extraInfoHTML() {
-  return `
-    <a href="${this.sizeChartLink}" target="_blank">
-      Size chart
-    </a>
-  `;
- }
+  extraInfoHTML() {
+    // super.extraInfoHTML();
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
+  }
 }
+
 /*
 const date = new Date();
 console.log(date);
-
-console.log(date.toLocaleTimeString())
+console.log(date.toLocaleTimeString());
 */
 
- export let products = [];
+/*
+console.log(this);
 
- export function loadProducts(fun) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-    products = JSON.parse(xhr.response).map((productDetails) => {
-      if (productDetails.type === 'clothing') {
-        return new Clothing(productDetails);
-      }
-      return new Product(productDetails);
-    }); 
-
-    console.log('load products');
-    fun();
-  });
-
-  xhr.open('GET', 'https://supersimplebackend.dev/products');
-  xhr.send();
- };
+const object2 = {
+  a: 2,
+  b: this.a
+};
+*/
 
 /*
+function logThis() {
+  console.log(this);
+}
+logThis();
+logThis.call('hello');
+
+this
+const object3 = {
+  method: () => {
+    console.log(this);
+  }
+};
+object3.method();
+*/
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -749,5 +753,4 @@ export const products = [
     return new Clothing(productDetails);
   }
   return new Product(productDetails);
-}); 
-*/
+});
