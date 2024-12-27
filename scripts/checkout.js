@@ -5,7 +5,7 @@ import { loadCart } from '../data/cart.js';
 // import '../data/cart-class.js';
 // import '../data/backtend-practice.js'
 
-
+/*
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve) => {
@@ -18,7 +18,22 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
 
+async function loadPage() {
+  await loadProductsFetch();
+
+  const value = await new Promise((resolve) => {
+    loadCart(() => {
+      resolve('value 3');
+    });
+  })
+
+  renderOrderSummary();
+  renderPaymentSummary();
+};
+
+loadPage()
 
 /*
 new Promise((resolve) => {
